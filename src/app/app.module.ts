@@ -9,6 +9,7 @@ import { IncomeOutcomeComponent } from './income-outcome/income-outcome.componen
 import { StatisticsComponent } from './income-outcome/statistics/statistics.component';
 import { DetailComponent } from './income-outcome/detail/detail.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FooterComponent } from './shared/footer/footer.component';
     IncomeOutcomeComponent,
     StatisticsComponent,
     DetailComponent,
-    FooterComponent
+    FooterComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule
