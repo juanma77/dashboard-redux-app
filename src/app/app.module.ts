@@ -10,6 +10,7 @@ import { StatisticsComponent } from './income-outcome/statistics/statistics.comp
 import { DetailComponent } from './income-outcome/detail/detail.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     StatisticsComponent,
     DetailComponent,
     FooterComponent,
-    NavbarComponent
+    NavbarComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule
