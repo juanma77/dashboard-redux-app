@@ -3,6 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 
+// Sweet Alert para manejar alertas de mensaje de error o login exitoso 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -38,6 +41,15 @@ export class RegisterComponent implements OnInit {
       return; 
     }
 
+
+    Swal.fire({
+      title: 'Espera por favor',
+      onBeforeOpen: () => {
+        Swal.showLoading()
+      },
+    });
+
+
     // Dentro de este objeto esta el valor de los 3 campos del formulario 
     // console.log( this.registerForm.value );
 
@@ -48,6 +60,8 @@ export class RegisterComponent implements OnInit {
     this.authService.createNewUser( name, email, password ).then( credenciales =>{
       // Caso éxitoso; el usuario se ha registrado de manera correcta  
 
+      Swal.close();
+
       this.router.navigate(['/']);
       
       console.log( credenciales );
@@ -56,7 +70,14 @@ export class RegisterComponent implements OnInit {
     } ).catch( err => {
 
       // Caso no exitoso 
-      console.error( err ); 
+      console.error( err );
+      
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err.message
+      })
+
     } ); 
 
 
