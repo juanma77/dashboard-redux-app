@@ -27,6 +27,7 @@ export class RegisterComponent implements OnInit {
 
   }
 
+  // Para crear un nuevo usuario 
   public createUser() {
 
     /*console.log( this.registerForm );
