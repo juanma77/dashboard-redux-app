@@ -24,4 +24,12 @@ export class AuthService {
     return this.auth.signInWithEmailAndPassword( email, password ); 
 
   }
+
+  // Hacemos sign out para cerrar sesión del usuario 
+  public closeUserSession() {
+
+    return this.auth.signOut(); 
+
+  }
+
 }
