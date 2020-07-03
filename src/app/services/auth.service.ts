@@ -32,4 +32,17 @@ export class AuthService {
 
   }
 
+  // Para obtener la informacion si el usuario esta logeado o no, y tomar las medidas necesarias para cuando quiere acceder a rutas sin estar logeado 
+  public initAuthListener() {
+
+    this.auth.authState.subscribe( fuser =>{
+
+      console.log( fuser ); 
+      //console.log( fuser?.uid );
+      //console.log( fuser?.email );
+
+    } );
+
+  }
+
 }
