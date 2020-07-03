@@ -119,8 +119,13 @@
               "devServerTarget": "dashboard-redux-app:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "dashboard-redux-app"
 }

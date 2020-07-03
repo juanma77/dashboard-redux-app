@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "income-outcome-app-86418": {
+      "hosting": {
+        "dashboard-redux-app": [
+          "income-outcome-app-86418"
+        ]
+      }
+    }
+  }
+}
