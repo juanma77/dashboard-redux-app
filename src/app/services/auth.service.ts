@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 
+import { map } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -42,6 +44,16 @@ export class AuthService {
       //console.log( fuser?.email );
 
     } );
+
+  }
+
+  // Esto regresa un Observable que resuelve un usuario de Firebase pero eso no nos sirve, sino que debemos de convertirlo a un boolean para así resolverlo; el pipe es para filtrar y obtener unicamente los datos que necesitamos; este map es diferente al map de js, este permite mutar un objeto, por ejemplo obtenemos aqui un fuser pero lo mutamos y regresamos un boolean; si el fuser es diferente de null regresa un true, si es igual entonces regresa un false 
+  public isUserAuth() {
+
+    return this.auth.authState.pipe(
+      map( fuser => fuser != null )
+
+    );
 
   }
 
