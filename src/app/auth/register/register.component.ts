@@ -1,21 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 // Sweet Alert para manejar alertas de mensaje de error o login exitoso 
 import Swal from 'sweetalert2';
+
+// Ngrx 
+import { AppState } from '../../app.reducer';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { IS_LOADING_ACTION, STOP_LOADING_ACTION } from 'src/app/shared/ui.actions';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   public registerForm: FormGroup; 
 
-  constructor( private fb: FormBuilder, private authService: AuthService, private router: Router ) { }
+  public loading: boolean = false; 
+
+  public uiUnsuscription: Subscription; 
+
+  constructor( private fb: FormBuilder, private authService: AuthService, private router: Router, private store: Store<AppState> ) { }
 
   ngOnInit() {
 
@@ -27,6 +37,20 @@ export class RegisterComponent implements OnInit {
 
 
     });
+
+    
+    this.uiUnsuscription = this.store.select('ui').subscribe( ui =>{
+
+      this.loading = ui.isLoading; 
+
+    } );
+
+
+  }
+
+  ngOnDestroy() {
+
+    this.uiUnsuscription.unsubscribe();
 
   }
 
@@ -41,13 +65,17 @@ export class RegisterComponent implements OnInit {
       return; 
     }
 
+    this.store.dispatch( IS_LOADING_ACTION() );
 
-    Swal.fire({
+    
+
+
+    /*Swal.fire({
       title: 'Espera por favor',
       onBeforeOpen: () => {
         Swal.showLoading()
       },
-    });
+    });*/
 
 
     // Dentro de este objeto esta el valor de los 3 campos del formulario 
@@ -60,7 +88,9 @@ export class RegisterComponent implements OnInit {
     this.authService.createNewUser( name, email, password ).then( credenciales =>{
       // Caso éxitoso; el usuario se ha registrado de manera correcta  
 
-      Swal.close();
+      //Swal.close();
+
+      this.store.dispatch( STOP_LOADING_ACTION() );
 
       this.router.navigate(['/']);
       
@@ -72,6 +102,8 @@ export class RegisterComponent implements OnInit {
       // Caso no exitoso 
       console.error( err );
       
+      this.store.dispatch( STOP_LOADING_ACTION() );
+
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -82,5 +114,7 @@ export class RegisterComponent implements OnInit {
 
 
   }
+
+  
 
 }
