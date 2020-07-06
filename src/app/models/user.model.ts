@@ -12,4 +12,12 @@ export class User {
 
     }
 
+    // El nombre de los argumentos debe de ser igual al nombre de los campos que tenemos en la bd de Firebase 
+    public static getDataFromFirebase( { email, uid, name } ) {
+
+        return new User( uid, name, email );
+        
+
+    }
+
 }

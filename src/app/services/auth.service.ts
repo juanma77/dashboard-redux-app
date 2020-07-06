@@ -9,12 +9,15 @@ import 'firebase/firestore';
 
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
-import { SET_USER_ACTION } from '../auth/auth.actions';
+import { SET_USER_ACTION, UNSET_USER_ACTION } from '../auth/auth.actions';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  public unSuscribeFirebaseDoc: Subscription; 
 
   constructor( public auth: AngularFireAuth, private firestore: AngularFirestore, private store: Store<AppState> ) { }
 
@@ -50,35 +53,34 @@ export class AuthService {
 
   }
 
-  // Para obtener la informacion si el usuario esta logeado o no, y tomar las medidas necesarias para cuando quiere acceder a rutas sin estar logeado 
+  // Para obtener la informacion si el usuario esta logeado o no, y tomar las medidas necesarias para cuando quiere acceder a rutas sin estar logeado; aqui nos suscribimos al authState para ver si existe el usuario en la bd, si sí entonces nos suscribimos al documento de la bd de Firebase y a la accion de SET_USER_ACTION le setteamos el usuario que recuperamos de ahí, si no entonces mandamos llamar la accion de UNSET_USER_ACTION
   public initAuthListener() {
 
     this.auth.authState.subscribe( fuser =>{
 
-      //console.log( fuser ); 
-      //console.log( fuser?.uid );
-      //console.log( fuser?.email );
-
+      // Si el usuario existe en la bd
       if( fuser ) {
 
-
-        this.firestore.doc(`${ fuser.uid }/usuario`).valueChanges().subscribe( firestoreUser =>{
+        this.unSuscribeFirebaseDoc = this.firestore.doc(`${ fuser.uid }/usuario`).valueChanges().subscribe( (firestoreUser: any) =>{ 
 
           console.log( firestoreUser ); 
 
-          const temUser = new User( '123', 'juanma', 'juanma@hasda.com' );
-          
-          this.store.dispatch( SET_USER_ACTION( { user: temUser } ) );
+          const user = User.getDataFromFirebase( firestoreUser ); 
+          this.store.dispatch( SET_USER_ACTION( { user: user } ) );
 
         } );
 
-
+        // Si el usuario no existe en la bd
       } else {
+
+        
+        this.store.dispatch( UNSET_USER_ACTION() );
+        this.unSuscribeFirebaseDoc.unsubscribe(); 
+
 
 
       }
 
-      
     } );
 
   }
