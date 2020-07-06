@@ -73,9 +73,9 @@ export class AuthService {
         // Si el usuario no existe en la bd
       } else {
 
-        
+    
         this.store.dispatch( UNSET_USER_ACTION() );
-        this.unSuscribeFirebaseDoc.unsubscribe(); 
+        this.unSuscribeFirebaseDoc.unsubscribe();  
 
 
 
