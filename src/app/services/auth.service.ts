@@ -7,12 +7,16 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 import 'firebase/firestore'; 
 
+import { Store } from '@ngrx/store';
+import { AppState } from '../app.reducer';
+import { SET_USER_ACTION } from '../auth/auth.actions';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor( public auth: AngularFireAuth, private firestore: AngularFirestore ) { }
+  constructor( public auth: AngularFireAuth, private firestore: AngularFirestore, private store: Store<AppState> ) { }
 
   // Creamos un nuevo usuario utilizando el método que nos da Firebase; creamos un nuevo usuario y lo posteamos a la bd de Firebase 
   public createNewUser( nombre: string, email: string, password: string ) {
@@ -51,10 +55,30 @@ export class AuthService {
 
     this.auth.authState.subscribe( fuser =>{
 
-      console.log( fuser ); 
+      //console.log( fuser ); 
       //console.log( fuser?.uid );
       //console.log( fuser?.email );
 
+      if( fuser ) {
+
+
+        this.firestore.doc(`${ fuser.uid }/usuario`).valueChanges().subscribe( firestoreUser =>{
+
+          console.log( firestoreUser ); 
+
+          const temUser = new User( '123', 'juanma', 'juanma@hasda.com' );
+          
+          this.store.dispatch( SET_USER_ACTION( { user: temUser } ) );
+
+        } );
+
+
+      } else {
+
+
+      }
+
+      
     } );
 
   }
