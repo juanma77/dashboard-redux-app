@@ -19,6 +19,8 @@ export class AuthService {
 
   public unSuscribeFirebaseDoc: Subscription; 
 
+  private _user: User; 
+
   constructor( public auth: AngularFireAuth, private firestore: AngularFirestore, private store: Store<AppState> ) { }
 
   // Creamos un nuevo usuario utilizando el método que nos da Firebase; creamos un nuevo usuario y lo posteamos a la bd de Firebase 
@@ -66,6 +68,12 @@ export class AuthService {
           console.log( firestoreUser ); 
 
           const user = User.getDataFromFirebase( firestoreUser ); 
+
+          // Esto es para usar este user en el income-outcome.service.ts
+          this._user = user; 
+
+          console.log(this._user);
+
           this.store.dispatch( SET_USER_ACTION( { user: user } ) );
 
         } );
@@ -73,16 +81,13 @@ export class AuthService {
         // Si el usuario no existe en la bd
       } else {
 
-    
-        this.store.dispatch( UNSET_USER_ACTION() );
+        this._user = null; 
         this.unSuscribeFirebaseDoc.unsubscribe();  
-
-
+        this.store.dispatch( UNSET_USER_ACTION() );
 
       }
 
     } );
-
   }
 
   // Esto regresa un Observable que resuelve un usuario de Firebase pero eso no nos sirve, sino que debemos de convertirlo a un boolean para así resolverlo; el pipe es para filtrar y obtener unicamente los datos que necesitamos; este map es diferente al map de js, este permite mutar un objeto, por ejemplo obtenemos aqui un fuser pero lo mutamos y regresamos un boolean; si el fuser es diferente de null regresa un true, si es igual entonces regresa un false 
@@ -92,6 +97,12 @@ export class AuthService {
       map( fuser => fuser != null )
 
     );
+
+  }
+
+  get getUser() {
+
+    return this._user; 
 
   }
 
