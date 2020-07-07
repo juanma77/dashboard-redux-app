@@ -24,4 +24,17 @@ export class IncomeOutcomeService {
    
 
   }
+
+  public initIncomesOutcomesListener( uid: string ) {
+
+    this.firestore.collection(`${ uid }/income-outcome/items`).valueChanges().subscribe( incomesOutcomesArray =>{
+
+      console.log( incomesOutcomesArray ); 
+
+    } );
+
+
+  }
+
+
 }
