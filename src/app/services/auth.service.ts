@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import { SET_USER_ACTION, UNSET_USER_ACTION } from '../auth/auth.actions';
 import { Subscription } from 'rxjs';
+import { UNSET_ITEMS_ACTION } from '../income-outcome/income-outcome.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -84,6 +85,7 @@ export class AuthService {
         this._user = null; 
         this.unSuscribeFirebaseDoc.unsubscribe();  
         this.store.dispatch( UNSET_USER_ACTION() );
+        this.store.dispatch( UNSET_ITEMS_ACTION() );
 
       }
 

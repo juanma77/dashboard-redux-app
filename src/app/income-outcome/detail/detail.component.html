@@ -16,11 +16,13 @@
               </thead>
 
               <tbody>
-                <tr>
-                  <td>Descripción</td>
-                  <td>Monto</td>
-                  <td>Tipo</td>
-                  <td>acciones</td>
+                <tr *ngFor="let incomeOutcome of incomesOutcomes">
+                  <td>{{ incomeOutcome.description }}</td>
+                  <td>{{ incomeOutcome.amount | currency }}</td>
+                  <td [class.text-success]="incomeOutcome.type === 'income'" [class.text-danger]="incomeOutcome.type === 'outcome'" >{{ incomeOutcome.type }}</td>
+                  <td> 
+                    <button (click)="deleteIncomeOutcome(incomeOutcome.uid)" type="button" class="btn btn-danger"> <i class="fa fa-trash"  ></i> Borrar</button> 
+                  </td>
                 </tr>
               </tbody>
 
