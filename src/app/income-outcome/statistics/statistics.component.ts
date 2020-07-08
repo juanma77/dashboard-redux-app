@@ -3,6 +3,10 @@ import { AppState } from 'src/app/app.reducer';
 import { Store } from '@ngrx/store';
 import { IncomeOutcome } from 'src/app/models/income-outcome.model';
 
+// Ng Charts 
+import { MultiDataSet, Label } from 'ng2-charts';
+import { ChartType } from 'chart.js';
+
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
@@ -15,6 +19,13 @@ export class StatisticsComponent implements OnInit {
 
   public totalIncomes: number = 0;
   public totalOutcomes: number = 0;
+
+  public doughnutChartLabels: Label[] = ['Incomes', 'Outcomes'];
+  public doughnutChartData: MultiDataSet = [
+    [],
+   
+  ];
+  public doughnutChartType: ChartType = 'doughnut';
 
   constructor( private store: Store<AppState> ) {
 
@@ -50,6 +61,8 @@ export class StatisticsComponent implements OnInit {
       }
 
     }
+
+   this.doughnutChartData = [ [this.totalIncomes, this.totalOutcomes] ]; 
 
 
   }

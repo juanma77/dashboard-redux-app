@@ -28,6 +28,10 @@ import { appReducer } from './app.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { IncomeOutcomeOrderPipe } from './pipes/income-outcome-order.pipe';
 
+// Ng Charts 
+import { ChartsModule } from 'ng2-charts';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +57,8 @@ import { IncomeOutcomeOrderPipe } from './pipes/income-outcome-order.pipe';
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production
-    })
+    }),
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
