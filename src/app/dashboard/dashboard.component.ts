@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     ).subscribe( user => {
 
-      console.log( user );
+      //onsole.log( user );
       
       this.incomeOutcomeService.initIncomesOutcomesListener( user.user.uid );
 
