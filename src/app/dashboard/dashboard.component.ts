@@ -4,6 +4,7 @@ import { AppState } from '../app.reducer';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { IncomeOutcomeService } from '../services/income-outcome.service';
+import { SET_ITEMS_ACTION } from '../income-outcome/income-outcome.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,6 +14,7 @@ import { IncomeOutcomeService } from '../services/income-outcome.service';
 export class DashboardComponent implements OnInit, OnDestroy {
 
   public unsubscribeUser: Subscription;
+  public unsubscribeIncome: Subscription;
 
   constructor( private store: Store<AppState>, private incomeOutcomeService: IncomeOutcomeService ) { }
 
@@ -27,7 +29,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
       //onsole.log( user );
       
-      this.incomeOutcomeService.initIncomesOutcomesListener( user.user.uid );
+      this.unsubscribeIncome = this.incomeOutcomeService.initIncomesOutcomesListener( user.user.uid ).subscribe( incomesOutcomesArray =>{
+
+        // Aqui obtenemos los ingresos y egresos desde Firebase de cada uno de los usuarios 
+        console.log( incomesOutcomesArray ); 
+
+        this.store.dispatch( SET_ITEMS_ACTION( { items: incomesOutcomesArray } ) ); 
+
+
+      } )
 
     } );
 
@@ -35,6 +45,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
 
+    this.unsubscribeIncome.unsubscribe();
     this.unsubscribeUser.unsubscribe();
 
   }

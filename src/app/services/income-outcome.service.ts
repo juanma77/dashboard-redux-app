@@ -26,9 +26,10 @@ export class IncomeOutcomeService {
 
   }
 
+  // Aqui regresamos una coleccion o arreglo de los incomes y outcomes de cada usuario desde Firebase 
   public initIncomesOutcomesListener( uid: string ) {
 
-    this.firestore.collection(`${ uid }/income-outcome/items`).snapshotChanges().pipe(
+    return this.firestore.collection(`${ uid }/income-outcome/items`).snapshotChanges().pipe(
       map( snapshot =>{
         return snapshot.map( doc =>{
           const data: any = doc.payload.doc.data();
@@ -41,9 +42,6 @@ export class IncomeOutcomeService {
         } )
       } )
     )
-    .subscribe( incomesOutcomesArray =>{
-      console.log( incomesOutcomesArray ); 
-    } );
   }
 
 }
