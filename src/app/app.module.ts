@@ -26,6 +26,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { StoreModule } from '@ngrx/store'; 
 import { appReducer } from './app.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { IncomeOutcomeOrderPipe } from './pipes/income-outcome-order.pipe';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     DetailComponent,
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    IncomeOutcomeOrderPipe
   ],
   imports: [
     BrowserModule,

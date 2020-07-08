@@ -16,7 +16,7 @@
               </thead>
 
               <tbody>
-                <tr *ngFor="let incomeOutcome of incomesOutcomes">
+                <tr *ngFor="let incomeOutcome of incomesOutcomes"> <!-- | incomeOutcomeOrder -->
                   <td>{{ incomeOutcome.description }}</td>
                   <td>{{ incomeOutcome.amount | currency }}</td>
                   <td [class.text-success]="incomeOutcome.type === 'income'" [class.text-danger]="incomeOutcome.type === 'outcome'" >{{ incomeOutcome.type }}</td>
