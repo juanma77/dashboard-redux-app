@@ -20,6 +20,8 @@ export class IncomeOutcomeService {
     const uid = this.authService.getUser.uid; 
     console.log(uid);
 
+    // delete incomeOutcome.uid;
+
     return this.firestore.doc(`${ uid }/income-outcome`).collection('items').add({ ...incomeOutcome });
 
    
