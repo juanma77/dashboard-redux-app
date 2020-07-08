@@ -44,4 +44,13 @@ export class IncomeOutcomeService {
     )
   }
 
+  // Eliminamos los items del usuario que existen en Firebase 
+  public deleteIncomesOutcomes( uidItem: string) {
+
+    const uid = this.authService.getUser.uid; 
+
+    return this.firestore.doc(`${ uid }/income-outcome/items/${ uidItem }`).delete();
+
+  }
+
 }

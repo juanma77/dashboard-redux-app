@@ -3,6 +3,8 @@ import { IncomeOutcome } from 'src/app/models/income-outcome.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { Subscription } from 'rxjs';
+import { IncomeOutcomeService } from 'src/app/services/income-outcome.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detail',
@@ -15,7 +17,7 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   public unSubscribeIcomeOutcome: Subscription; 
 
-  constructor( private store: Store<AppState> ) { }
+  constructor( private store: Store<AppState>, private incomeOutcomeService: IncomeOutcomeService ) { }
 
   ngOnInit() {
 
@@ -33,9 +35,27 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   }
 
-  public deleteIncomeOutcome( uid: string ) {
+  public deleteIncomeOutcome( uidIitem: string ) {
 
-    console.log( uid ); 
+    // console.log( uidItem );
+    
+   this.incomeOutcomeService.deleteIncomesOutcomes( uidIitem ).then( item  =>{
+
+    Swal.fire(
+
+      'Item deleted successfully!' , 'success'
+
+    )
+
+   } ).catch( err =>{
+
+    Swal.fire(
+
+      'An error happened while deleting the Item', err.message, 'error'
+
+    )
+
+   } )
 
   }
 
