@@ -7,9 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { IncomeOutcomeComponent } from './income-outcome/income-outcome.component';
 import { StatisticsComponent } from './income-outcome/statistics/statistics.component';
 import { DetailComponent } from './income-outcome/detail/detail.component';
-import { FooterComponent } from './shared/footer/footer.component';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
+
 import { AppRoutingModule } from './app-routing.module';
 
 // Formularios Reactivos 
@@ -33,6 +31,9 @@ import { ChartsModule } from 'ng2-charts';
 // Modulo que tiene el LoginComponent, RegisterComponent y los ReactiveForms
 import { AuthModule } from './auth/auth.module';
 
+// Modulo de Shared (Sidebar, Navbar y Footer)
+import { SharedModule } from './shared/shared.module';
+
 
 @NgModule({
   declarations: [
@@ -41,9 +42,6 @@ import { AuthModule } from './auth/auth.module';
     IncomeOutcomeComponent,
     StatisticsComponent,
     DetailComponent,
-    FooterComponent,
-    NavbarComponent,
-    SidebarComponent,
     IncomeOutcomeOrderPipe
   ],
   imports: [
@@ -59,7 +57,8 @@ import { AuthModule } from './auth/auth.module';
       logOnly: environment.production
     }),
     ChartsModule,
-    AuthModule
+    AuthModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
