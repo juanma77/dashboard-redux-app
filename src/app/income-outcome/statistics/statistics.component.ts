@@ -46,6 +46,11 @@ export class StatisticsComponent implements OnInit {
 
   public generateStatistics( items: IncomeOutcome[] ) {
 
+    this.totalIncomes = 0;
+    this.totalOutcomes = 0;
+    this.incomes = 0;
+    this.outcomes = 0; 
+
     for( const item of items ) {
 
       if( item.type === 'income' ) {
@@ -62,6 +67,7 @@ export class StatisticsComponent implements OnInit {
 
     }
 
+   // Para pasar la data a la grafica  
    this.doughnutChartData = [ [this.totalIncomes, this.totalOutcomes] ]; 
 
 
