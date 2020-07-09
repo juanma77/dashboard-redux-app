@@ -83,7 +83,7 @@ export class AuthService {
       } else {
 
         this._user = null; 
-        this.unSuscribeFirebaseDoc.unsubscribe();  
+        //this.unSuscribeFirebaseDoc.unsubscribe();  
         this.store.dispatch( UNSET_USER_ACTION() );
         this.store.dispatch( UNSET_ITEMS_ACTION() );
 
