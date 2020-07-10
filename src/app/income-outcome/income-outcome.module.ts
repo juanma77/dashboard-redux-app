@@ -17,6 +17,11 @@ import { SharedModule } from '../shared/shared.module';
 
 import { DashboardRoutesModule } from '../dashboard/dashboard-routes.module';
 
+import { StoreModule } from '@ngrx/store';
+
+// Aqui cargamos el incomeOutcomeReducer de manera perezosa (lazy load)
+import { incomeOutcomeReducer } from './income-outcome.reducer';
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -30,7 +35,8 @@ import { DashboardRoutesModule } from '../dashboard/dashboard-routes.module';
     ReactiveFormsModule,
     ChartsModule,
     SharedModule,
-    DashboardRoutesModule
+    DashboardRoutesModule,
+    StoreModule.forFeature( 'incomeOutcome', incomeOutcomeReducer )
   ]
 })
 export class IncomeOutcomeModule { }

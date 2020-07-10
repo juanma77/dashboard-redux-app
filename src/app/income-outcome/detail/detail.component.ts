@@ -5,6 +5,7 @@ import { AppState } from 'src/app/app.reducer';
 import { Subscription } from 'rxjs';
 import { IncomeOutcomeService } from 'src/app/services/income-outcome.service';
 import Swal from 'sweetalert2';
+import { AppStateWithIncome } from '../income-outcome.reducer';
 
 @Component({
   selector: 'app-detail',
@@ -17,7 +18,7 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   public unSubscribeIcomeOutcome: Subscription; 
 
-  constructor( private store: Store<AppState>, private incomeOutcomeService: IncomeOutcomeService ) { }
+  constructor( private store: Store<AppStateWithIncome>, private incomeOutcomeService: IncomeOutcomeService ) { }
 
   ngOnInit() {
 

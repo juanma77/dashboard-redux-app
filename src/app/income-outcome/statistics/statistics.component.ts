@@ -6,6 +6,7 @@ import { IncomeOutcome } from 'src/app/models/income-outcome.model';
 // Ng Charts 
 import { MultiDataSet, Label } from 'ng2-charts';
 import { ChartType } from 'chart.js';
+import { AppStateWithIncome } from '../income-outcome.reducer';
 
 @Component({
   selector: 'app-statistics',
@@ -27,9 +28,7 @@ export class StatisticsComponent implements OnInit {
   ];
   public doughnutChartType: ChartType = 'doughnut';
 
-  constructor( private store: Store<AppState> ) {
-
-
+  constructor( private store: Store<AppStateWithIncome> ) {
 
   }
 
